@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-undef */
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
@@ -50,15 +52,27 @@ const useStyles = makeStyles(theme => ({
 export default function SideBar() {
   const classes = useStyles();
   const [caseTitle, setCaseTitle] = React.useState();
-  const [selectedStartDate, setStartDate] = React.useState(new Date('2019-08-18T21:11:54'));
-  const [selectedEndDate, setEndDate] = React.useState(new Date('2020-08-18T21:11:54'));
+  const [selectedStartDate, setStartDate] = React.useState(1262304000);
+  const [selectedEndDate, setEndDate] = React.useState(1600560000);
+  let page; let perPage; let incidentType; let proximity; let proximitySquare;
+
+  const params = new URLSearchParams();
+  page && params.append('page', page);
+  perPage && params.append('per_page', perPage);
+  selectedStartDate && params.append('occurred_after', selectedStartDate);
+  selectedEndDate && params.append('occurred_before', selectedEndDate);
+  params.append('incident_type', incidentType || 'theft');
+  params.append('proximity', proximity || 'Berlin');
+  params.append('proximity_square', proximitySquare || '100');
+  caseTitle && params.append('query', caseTitle);
+  const bikeWise = `https://bikewise.org:443/api/v2/incidents?${ params}`;
 
   const handleStartDateChange = date => {
-    setStartDate(date);
+    setStartDate(Date.parse(date));
   };
 
   const handleEndDateChange = date => {
-    setEndDate(date);
+    setEndDate(Date.parse(date));
   };
 
   return (
@@ -126,6 +140,7 @@ export default function SideBar() {
         size="large"
         className={classes.button}
         endIcon={<SearchIcon />}
+        onClick={() => console.log(bikeWise)}
       >
         Send
       </Button>
