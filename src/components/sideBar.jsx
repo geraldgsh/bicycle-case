@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -14,6 +16,7 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import { Button } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
+import { createReport } from '../actions/index';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,9 +54,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function SideBar() {
   const classes = useStyles();
-  const [caseTitle, setCaseTitle] = React.useState();
-  const [selectedStartDate, setStartDate] = React.useState(1262304000);
-  const [selectedEndDate, setEndDate] = React.useState(1600560000);
+  const [caseTitle, setCaseTitle] = useState();
+  const [selectedStartDate, setStartDate] = useState();
+  const [selectedEndDate, setEndDate] = useState();
   let page; let perPage; let incidentType; let proximity; let proximitySquare;
 
   const params = new URLSearchParams();
@@ -65,27 +68,40 @@ export default function SideBar() {
   params.append('proximity', proximity || 'Berlin');
   params.append('proximity_square', proximitySquare || '100');
   caseTitle && params.append('query', caseTitle);
-  const bikeWise = `https://bikewise.org:443/api/v2/incidents?${ params}`;
-
+  const bikeWise = `https://bikewise.org:443/api/v2/incidents?${params}`;
+  const dispatch = useDispatch();
   const handleStartDateChange = date => {
-    setStartDate(Date.parse(date));
+    setStartDate(date.getTime() / 1000.0);
   };
 
   const handleEndDateChange = date => {
-    setEndDate(Date.parse(date));
+    setEndDate(date.getTime() / 1000.0);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    axios(bikeWise)
+      .then(response => {
+        dispatch(createReport({ reports: response.data.incidents }));
+        console.log(response.data.incidents);
+      })
+      .catch(error => {
+        dispatch(createReport({ error: error.response.data.error }));
+        console.log(error.response.data.error);
+      });
   };
 
   return (
-    <Grid height="100%" xs={12} md={3} className={classes.bg}>
+    <Grid item height="100%" xs={12} md={3} className={classes.bg}>
       <Grid container justify="center">
         <Box pt={3}>
           <Avatar alt="Random" src="https://randomuser.me/api/portraits/lego/0.jpg" className={classes.large} />
         </Box>
       </Grid>
       <h2>
-        <h className={classes.bgColor}>
+        <p className={classes.bgColor}>
           The case of missing bicycles
-        </h>
+        </p>
       </h2>
       <form className={classes.root} noValidate autoComplete="off">
         <Grid container justify="center">
@@ -107,11 +123,10 @@ export default function SideBar() {
             className={classes.bgColor}
             disableToolbar
             variant="inline"
-            format="MM/dd/yyyy"
+            format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
             label="Start Date"
-            value={selectedStartDate}
             onChange={handleStartDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
@@ -123,11 +138,10 @@ export default function SideBar() {
             className={classes.bgColor}
             disableToolbar
             variant="inline"
-            format="MM/dd/yyyy"
+            format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
             label="End Date"
-            value={selectedEndDate}
             onChange={handleEndDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
@@ -140,7 +154,7 @@ export default function SideBar() {
         size="large"
         className={classes.button}
         endIcon={<SearchIcon />}
-        onClick={() => console.log(bikeWise)}
+        onClick={e => handleSubmit(e)}
       >
         Send
       </Button>

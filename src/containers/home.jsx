@@ -8,7 +8,7 @@ export default function Home() {
       <Grid item xs={12}>
         <Grid container justify="center" className="full-height">
           <SideBar />
-          <Grid height="100%" xs={12} md={9}>
+          <Grid item height="100%" xs={12} md={9}>
             <h3>Case of missing bicycles</h3>
           </Grid>
         </Grid>
