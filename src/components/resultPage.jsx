@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
+import Pagination from '@material-ui/lab/Pagination';
 import {
   List, ListItem, makeStyles, Divider, Box,
 } from '@material-ui/core';
@@ -14,8 +15,6 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 
@@ -34,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     minHeight: '294px',
-    minWidth: '294px',
+    minWidth: '394px',
   },
 }));
 
@@ -58,11 +57,6 @@ const DialogTitle = withStyles(styles)(props => {
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
     </MuiDialogTitle>
   );
 });
@@ -84,7 +78,6 @@ const CaseNote = info => {
   const classes = useStyles();
   const theft = new Date(info.info.occurred_at * 1000).toDateString();
   const reported = new Date(info.info.updated_at * 1000).toDateString();
-  console.group(info.info.media.image_url);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -147,13 +140,25 @@ const CaseNote = info => {
   );
 };
 
-export default function SideBar() {
+export default function ResultPage() {
   const classes = useStyles();
   const reports = useSelector(state => state.reports[0]);
+  const itemsPerPage = 10;
+  const [page, setPage] = useState(1);
+  const [noOfPages, setNoOfPages] = useState();
+
+  useEffect(() => {
+    if (reports) { setNoOfPages(Math.ceil(reports.length / itemsPerPage)); }
+  }, [reports]);
+
+  const handleChange = (_event, value) => {
+    setPage(value);
+  };
   return (
     <Grid item height="100%" xs={12} md={9}>
       <List dense component="span">
         {reports ? reports
+          .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map(report => {
             const labelId = `list-secondary-label-${report.title}`;
             return (
@@ -178,6 +183,26 @@ export default function SideBar() {
             );
           }) : null}
       </List>
+      {reports
+        ? (
+          <div>
+            <Divider />
+            <Box component="span">
+              <Pagination
+                count={noOfPages}
+                page={page}
+                onChange={handleChange}
+                defaultPage={1}
+                color="primary"
+                size="large"
+                showFirstButton
+                showLastButton
+                classes={{ ul: classes.paginator }}
+              />
+            </Box>
+          </div>
+        )
+        : null }
     </Grid>
   );
 }

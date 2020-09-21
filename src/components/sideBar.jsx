@@ -57,6 +57,7 @@ export default function SideBar() {
   const [caseTitle, setCaseTitle] = useState();
   const [selectedStartDate, setStartDate] = useState();
   const [selectedEndDate, setEndDate] = useState();
+  const [caseCount, setCaseCount] = useState();
   let page; let perPage; let incidentType; let proximity; let proximitySquare;
 
   const params = new URLSearchParams();
@@ -83,7 +84,7 @@ export default function SideBar() {
     axios(bikeWise)
       .then(response => {
         dispatch(createReport(response.data.incidents));
-        // console.log(response.data.incidents);
+        setCaseCount(response.data.incidents.length);
       })
       .catch(error => {
         // dispatch(createReport({ error: error.response.data.error }));
@@ -158,6 +159,15 @@ export default function SideBar() {
       >
         Send
       </Button>
+      {caseCount ? (
+        <h3>
+          <p className={classes.bgColor}>
+            Number of Cases:
+            {' '}
+            <b>{caseCount}</b>
+          </p>
+        </h3>
+      ) : null}
     </Grid>
   );
 }
