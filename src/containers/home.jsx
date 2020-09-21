@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import SideBar from '../components/sideBar';
+import ResultPage from '../components/resultPage';
 
 export default function Home() {
   return (
@@ -8,9 +9,7 @@ export default function Home() {
       <Grid item xs={12}>
         <Grid container justify="center" className="full-height">
           <SideBar />
-          <Grid item height="100%" xs={12} md={9}>
-            <h3>Case of missing bicycles</h3>
-          </Grid>
+          <ResultPage />
         </Grid>
       </Grid>
     </Grid>

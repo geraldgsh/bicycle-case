@@ -82,11 +82,11 @@ export default function SideBar() {
     e.preventDefault();
     axios(bikeWise)
       .then(response => {
-        dispatch(createReport({ reports: response.data.incidents }));
-        console.log(response.data.incidents);
+        dispatch(createReport(response.data.incidents));
+        // console.log(response.data.incidents);
       })
       .catch(error => {
-        dispatch(createReport({ error: error.response.data.error }));
+        // dispatch(createReport({ error: error.response.data.error }));
         console.log(error.response.data.error);
       });
   };
