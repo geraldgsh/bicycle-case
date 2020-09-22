@@ -3,7 +3,7 @@ React and Redux
 
 ### Snapshot
 
-![]()
+![](https://github.com/geraldgsh/bicycle-case/blob/development/public/screenshot.jpg?raw=true)
 
 ### Introduction.
 
