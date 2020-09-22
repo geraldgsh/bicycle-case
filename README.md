@@ -120,8 +120,8 @@ Make sure that you do not modify the [`.github/workflows/linters.yml`](.github/w
 
 ### Future Features
 
-1. Persistent storage of bookmarks with Firebase DB
-2. Feature to remove bookmarks
+1. 
+2. 
 
 ### To begin
 
