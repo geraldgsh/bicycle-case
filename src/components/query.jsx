@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
@@ -25,19 +23,6 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
   },
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  large: {
-    width: theme.spacing(20),
-    height: theme.spacing(20),
-  },
-  bg: {
-    background: "url('https://source.unsplash.com/GxEC8q7lm-M/640x960') no-repeat center center;",
-    height: '100%',
-    backgroundSize: 'cover',
-  },
   bgColor: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
@@ -52,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SideBar() {
+export default function Query() {
   const classes = useStyles();
   const [caseTitle, setCaseTitle] = useState();
   const [selectedStartDate, setStartDate] = useState();
@@ -93,17 +78,7 @@ export default function SideBar() {
   };
 
   return (
-    <Grid item height="100%" xs={12} md={3} className={classes.bg}>
-      <Grid container justify="center">
-        <Box pt={3}>
-          <Avatar alt="Random" src="https://randomuser.me/api/portraits/lego/0.jpg" className={classes.large} />
-        </Box>
-      </Grid>
-      <h2>
-        <p className={classes.bgColor}>
-          The case of missing bicycles
-        </p>
-      </h2>
+    <div>
       <form className={classes.root} noValidate autoComplete="off">
         <Grid container justify="center">
           <div className={classes.bgColor}>
@@ -168,6 +143,6 @@ export default function SideBar() {
           </p>
         </h3>
       ) : null}
-    </Grid>
+    </div>
   );
 }

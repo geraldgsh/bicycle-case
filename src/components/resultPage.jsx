@@ -17,6 +17,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
+import Loader from '../elements/loader';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -146,14 +147,33 @@ export default function ResultPage() {
   const itemsPerPage = 10;
   const [page, setPage] = useState(1);
   const [noOfPages, setNoOfPages] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (reports) { setNoOfPages(Math.ceil(reports.length / itemsPerPage)); }
+    setLoading(true);
+    if (reports) {
+      setNoOfPages(Math.ceil(reports.length / itemsPerPage));
+      setLoading(false);
+    }
   }, [reports]);
 
   const handleChange = (_event, value) => {
     setPage(value);
   };
+  if (!reports) {
+    return (
+      <Grid item height="100%" xs={12} md={9}>
+        {' '}
+      </Grid>
+    );
+  }
+  if (loading === true) {
+    return (
+      <Grid item height="100%" xs={12} md={9}>
+        <Loader />
+      </Grid>
+    );
+  }
   return (
     <Grid item height="100%" xs={12} md={9}>
       <List dense component="span">
