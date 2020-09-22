@@ -14,7 +14,7 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import { Button } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import { createReport } from '../actions/index';
+import { reportBegin, reportSuccess, reportFailure } from '../actions/index';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,14 +66,14 @@ export default function Query() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    dispatch(reportBegin());
     axios(bikeWise)
       .then(response => {
-        dispatch(createReport(response.data.incidents));
+        dispatch(reportSuccess(response.data.incidents));
         setCaseCount(response.data.incidents.length);
       })
       .catch(error => {
-        // dispatch(createReport({ error: error.response.data.error }));
-        console.log(error.response.data.error);
+        dispatch(reportFailure(error.response.data.error));
       });
   };
 

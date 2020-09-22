@@ -36,6 +36,10 @@ const useStyles = makeStyles(theme => ({
     minHeight: '294px',
     minWidth: '394px',
   },
+  error: {
+    color: 'red',
+    marginTop: '25%',
+  },
 }));
 
 const styles = theme => ({
@@ -79,7 +83,7 @@ const CaseNote = info => {
   const classes = useStyles();
   const theft = new Date(info.info.occurred_at * 1000).toDateString();
   const reported = new Date(info.info.updated_at * 1000).toDateString();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -107,7 +111,7 @@ const CaseNote = info => {
             <br />
           </Typography>
           <Typography gutterBottom>
-            Date of the theft:
+            Date of theft:
             {' '}
             <b>{theft}</b>
           </Typography>
@@ -143,27 +147,29 @@ const CaseNote = info => {
 
 export default function ResultPage() {
   const classes = useStyles();
-  const reports = useSelector(state => state.reports[0]);
+  const { loading, reports, error } = useSelector(
+    state => ({
+      loading: state.reports.loading,
+      reports: state.reports.reports,
+      error: state.reports.error,
+    }),
+  );
   const itemsPerPage = 10;
   const [page, setPage] = useState(1);
   const [noOfPages, setNoOfPages] = useState();
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
-    setLoading(true);
     if (reports) {
       setNoOfPages(Math.ceil(reports.length / itemsPerPage));
-      setLoading(false);
     }
   }, [reports]);
 
   const handleChange = (_event, value) => {
     setPage(value);
   };
-  if (!reports) {
+  if (error) {
     return (
       <Grid item height="100%" xs={12} md={9}>
-        {' '}
+        <h3 className={classes.error}>{error}</h3>
       </Grid>
     );
   }
