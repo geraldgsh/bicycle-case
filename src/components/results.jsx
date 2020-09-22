@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import {
   List, ListItem, makeStyles, Divider, Box,
@@ -9,15 +7,8 @@ import {
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
-import CardMedia from '@material-ui/core/CardMedia';
 import Loader from '../elements/loader';
+import CaseNote from './dialog/caseNote';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,110 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const styles = theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
-
-const DialogTitle = withStyles(styles)(props => {
-  const {
-    children, classes, onClose, ...other
-  } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
-const CaseNote = info => {
-  const classes = useStyles();
-  const theft = new Date(info.info.occurred_at * 1000).toDateString();
-  const reported = new Date(info.info.updated_at * 1000).toDateString();
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Details
-      </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle>
-          {info.info.title}
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            {
-              info.info.description
-                ? info.info.description
-                : <em>No description given</em>
-            }
-            <br />
-            <br />
-          </Typography>
-          <Typography gutterBottom>
-            Date of theft:
-            {' '}
-            <b>{theft}</b>
-          </Typography>
-          <Typography gutterBottom>
-            Date of report:
-            {' '}
-            <b>{reported}</b>
-          </Typography>
-          <br />
-          {
-            info.info.media.image_url
-              ? <CardMedia className={classes.media} image={info.info.media.image_url} />
-              : <em>No image provided</em>
-          }
-          <br />
-          <Typography gutterBottom>
-            <br />
-            Location of theft:
-            {' '}
-            <u>{info.info.address}</u>
-            <br />
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-};
-
-export default function ResultPage() {
+export default function Results() {
   const classes = useStyles();
   const { loading, reports, error } = useSelector(
     state => ({
@@ -168,20 +56,21 @@ export default function ResultPage() {
   };
   if (error) {
     return (
-      <Grid item height="100%" xs={12} md={9}>
-        <h3 className={classes.error}>{error}</h3>
-      </Grid>
+      <h3 className={classes.error}>{error}</h3>
+    );
+  }
+  if (reports && reports.length === 0) {
+    return (
+      <h3 className={classes.error}>No Results</h3>
     );
   }
   if (loading === true) {
     return (
-      <Grid item height="100%" xs={12} md={9}>
-        <Loader />
-      </Grid>
+      <Loader />
     );
   }
   return (
-    <Grid item height="100%" xs={12} md={9}>
+    <div>
       <List dense component="span">
         {reports ? reports
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
@@ -229,6 +118,6 @@ export default function ResultPage() {
           </div>
         )
         : null }
-    </Grid>
+    </div>
   );
 }
