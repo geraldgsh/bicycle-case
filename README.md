@@ -1,68 +1,181 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Bicycle-Case
+React and Redux
 
-## Available Scripts
+### Snapshot
 
-In the project directory, you can run:
+![]()
 
-### `yarn start`
+### Introduction.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Stolen bikes are a typical problem in Berlin. The Police want to be more efficient in resolving stolen bike cases. They need an app needs to display the list of reported bike thefts based on the Bikewise API.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+https://www.bikewise.org/documentation/api_v2
 
-### `yarn test`
+### Tools
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* React
+* React-DOM
+* React-Create-App
+* NPM
+* CSS
+* ES6
+* Webpack
+* Material UI
 
-### `yarn build`
+# React and Redux
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is the **GitHub Actions configuration**. If you are looking for the **Stickler configuration**, you can find it [here](https://github.com/microverseinc/linters-config/tree/Stickler/react-redux).
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+If you are not familiar with linters and GitHub Actions, read [root level README](../README.md).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Set-up GitHub Actions
 
-### `yarn eject`
+This GitHub Action is going to run [ESLint](https://eslint.org/) and [Stylelint](https://stylelint.io/) to help you find style issues.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[Stylelint](https://stylelint.io/) is a linter for your stylesheets that helps you avoid errors and enforce conventions.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[ESLint](https://eslint.org/) is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Please do the following **steps in this order**:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. In the first commit of your feature branch create a `.github/workflows` folder and add a copy of [`.github/workflows/linters.yml`](.github/workflows/linters.yml) to that folder.
+    - **Remember** to use the file linked above
+    - **Remember** that `.github` folder starts with a dot.
+2. **Do not make any changes in config files - they represent style guidelines that you share with your team - which is a group of all Microverse students.**
+    - If you think that change is necessary - open a [Pull Request in this repository](../README.md#contributing) and let your code reviewer know about it.
+3. When you open your first pull request you should see the result of the GitHub Actions:
 
-## Learn More
+![gh actions checks](https://github.com/microverseinc/linters-config/blob/master/assets/images/gh-actions-eslint-stylelint-checks.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Click on the `Details` link to see the full output and the errors that need to be fixed:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![gh actions failing checks](https://github.com/microverseinc/linters-config/blob/master/assets/images/gh-actions-html-css-failing-checks.png)
 
-### Code Splitting
+## Set-up linters in your local env
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### ESLint
 
-### Analyzing the Bundle Size
+1. Run `npm install --save-dev eslint@6.8.x eslint-config-airbnb@18.1.x eslint-plugin-import@2.20.x eslint-plugin-jsx-a11y@6.2.x eslint-plugin-react@7.20.x eslint-plugin-react-hooks@2.5.x` (not sure how to use npm? Read [this](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+$ npm install --save-dev eslint@6.8.x eslint-config-airbnb@18.1.x eslint-plugin-import@2.20.x eslint-plugin-jsx-a11y@6.2.x eslint-plugin-react@7.20.x eslint-plugin-react-hooks@2.5.x
 
-### Making a Progressive Web App
++ eslint-config-airbnb@18.1.0
++ eslint-plugin-react@7.20.6
++ eslint-plugin-import@2.20.2
++ eslint-plugin-jsx-a11y@6.2.3
++ eslint-plugin-react-hooks@2.5.1
++ eslint@6.8.0
+added 456 packages from 105 contributors, removed 150 packages, updated 1384 packages and audited 1851 packages in 264.998s
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+70 packages are looking for funding
+```
 
-### Advanced Configuration
+2. Copy [.eslintrc.json](./.eslintrc.json) to the root directory of your project.
+3. **Do not make any changes in config files - they represent style guidelines that you share with your team - which is a group of all Microverse students.**
+    - If you think that change is necessary - open a [Pull Request in this repository](../README.md#contributing) and let your code reviewer know about it.
+4. Run `npx eslint .` on the root of your directory of your project.
+5. Fix linter errors.
+6. **IMPORTANT NOTE**: feel free to research [auto-correct options for Stylelint](https://stylelint.io/user-guide/cli#autofixing-errors) if you get a flood of errors but keep in mind that correcting style errors manually will help you to make a habit of writing a clean code!
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Stylelint
 
-### Deployment
+1. Run
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+   ```
+   npm install --save-dev stylelint@13.3.x stylelint-scss@3.17.x stylelint-config-standard@20.0.x stylelint-csstree-validator
+   ```
 
-### `yarn build` fails to minify
+   (not sure how to use npm? Read [this](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+```
+$ npm install --save-dev stylelint@13.3.x stylelint-scss@3.17.x stylelint-config-standard@20.0.x stylelint-csstree-validator
+
++ stylelint-config-standard@20.0.0
++ stylelint-csstree-validator@1.8.0
++ stylelint-scss@3.17.2
++ stylelint@13.3.3
+added 136 packages from 91 contributors, removed 10 packages, updated 6 packages and audited 1987 packages in 67.901s
+
+113 packages are looking for funding
+```
+
+2. Copy [.stylelintrc.json](./.stylelintrc.json) to the root directory of your project.
+3. **Do not make any changes in config files - they represent style guidelines that you share with your team - which is a group of all Microverse students.**
+   - If you think that change is necessary - open a [Pull Request in this repository](../README.md#contributing) and let your code reviewer know about it.
+4. Run
+   ```
+   npx stylelint "**/*.{css,scss}"
+   ```
+   on the root of your directory of your project.
+5. Fix linter errors.
+6. **IMPORTANT NOTE**: feel free to research [auto-correct options for Stylelint](https://stylelint.io/user-guide/cli#autofixing-errors) if you get a flood of errors but keep in mind that correcting style errors manually will help you to make a habit of writing a clean code!
+
+## Test/Deployment Actions
+
+Feel free to add your own deployment actions which can run your tests and deploy to Heroku.
+
+Make sure that you do not modify the [`.github/workflows/linters.yml`](.github/workflows/linters.yml) but that you create a separe GitHub Action workflow file for that.
+
+### Future Features
+
+1. Persistent storage of bookmarks with Firebase DB
+2. Feature to remove bookmarks
+
+### To begin
+
+1. Clone Repo
+2. 'npm install' to install dependencies
+3. `yarn start` or 'npm start' on terminal
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### To test
+
+1. `yarn test` or 'npm test' on terminal
+
+### Wiki
+
+Checkout our [wikipage](https://github.com/geraldgsh/bicycle-case/wiki) for more details. 
+
+#### Live Demo
+[Demo](https://bicycle-case.netlify.com)
+
+#### Getting Started
+Clone repo and open index.html with your favorite browser.
+
+#### Prerequisites
+Web browser like Chrome, Mozilla or similar.
+
+### Original Project Source
+
+
+### Github Repo
+https://github.com/geraldgsh/bicycle-case
+
+👤 **Author**
+
+Github: [geraldgsh](https://github.com/geraldgsh)
+
+Twitter: [geraldgsh](https://twitter.com/geraldgsh)
+
+Linkedin: [Gerald Goh](https://www.linkedin.com/geraldgsh)
+
+## 🤝 Contributing
+Contributions, issues and feature requests are welcome!
+
+Feel free to check the [issues page](https://github.com/geraldgsh/bicycle-case/issues).
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
+
+## 📝 License
+
+This project is [MIT](lic.url) licensed.

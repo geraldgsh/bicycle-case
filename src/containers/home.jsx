@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import SideBar from './sideBar';
-import ResultPage from '../components/resultPage';
+import ResultPage from './resultPage';
 
 export default function Home() {
   return (
