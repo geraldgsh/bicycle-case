@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   bg: {
-    background: "url('https://source.unsplash.com/GxEC8q7lm-M/640x960') no-repeat center center;",
+    background: "url('https://source.unsplash.com/GxEC8q7lm-M/640x960') repeat center center;",
     height: '100%',
     backgroundSize: 'cover',
   },

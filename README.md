@@ -132,7 +132,7 @@ Make sure that you do not modify the [`.github/workflows/linters.yml`](.github/w
 
 ### To test
 
-1. 
+1. `yarn test` or 'npm test' on terminal
 
 ### Wiki
 

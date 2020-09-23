@@ -22,7 +22,7 @@ export default function MainAvatar() {
       <Grid container justify="center">
         <Box pt={3}>
           <Avatar
-            alt="Random" 
+            alt="Random"
             src="https://randomuser.me/api/portraits/lego/0.jpg"
             className={classes.large}
           />
