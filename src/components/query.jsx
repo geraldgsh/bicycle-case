@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -13,29 +12,8 @@ import {
 } from '@material-ui/pickers';
 import SearchIcon from '@material-ui/icons/Search';
 import { Button } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
 import { reportBegin, reportSuccess, reportFailure } from '../actions/index';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-  bgColor: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-  },
-  button: {
-    margin: theme.spacing(1),
-    color: 'white',
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[700],
-    },
-    fontWeight: '700',
-  },
-}));
+import useStyles from '../assets/queryStyles';
 
 export default function Query() {
   const classes = useStyles();
