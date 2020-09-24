@@ -2,36 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
 import {
-  List, ListItem, makeStyles, Divider, Box,
+  List, ListItem, Divider, Box,
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Loader from '../elements/loader';
 import CaseNote from './dialog/caseNote';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
-  item: {
-    padding: theme.spacing(1.2),
-  },
-  avatar: { marginRight: theme.spacing(5) },
-  paginator: {
-    justifyContent: 'center',
-    padding: '10px',
-  },
-  media: {
-    minHeight: '294px',
-    minWidth: '394px',
-  },
-  error: {
-    color: 'red',
-    marginTop: '25%',
-  },
-}));
+import useStyles from '../assets/resultsStyles';
 
 export default function Results() {
   const classes = useStyles();

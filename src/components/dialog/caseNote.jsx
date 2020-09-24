@@ -1,34 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 import { DialogTitle, DialogContent, DialogActions } from './dialogHelper';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
-  item: {
-    padding: theme.spacing(1.2),
-  },
-  avatar: { marginRight: theme.spacing(5) },
-  paginator: {
-    justifyContent: 'center',
-    padding: '10px',
-  },
-  media: {
-    minHeight: '294px',
-    minWidth: '394px',
-  },
-  error: {
-    color: 'red',
-    marginTop: '25%',
-  },
-}));
+import useStyles from '../../assets/caseNoteStyles';
 
 export default function CaseNote(info) {
   const classes = useStyles();
