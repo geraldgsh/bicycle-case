@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import Adapter from 'enzyme-adapter-react-16';
-import List from '@material-ui/core';
+import { List } from '@material-ui/core';
 import '@testing-library/jest-dom/extend-expect';
 import Results from '../../components/results';
 
@@ -40,7 +40,7 @@ describe('Query container', () => {
   it('should render two div tag', () => {
     expect(component.find('div')).toHaveLength(1);
   });
-  it('should render one List tag', () => {
+  it('should render one List component', () => {
     expect(component.find(List)).toHaveLength(1);
   });
 });
