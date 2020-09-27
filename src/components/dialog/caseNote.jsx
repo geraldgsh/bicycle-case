@@ -8,9 +8,10 @@ import { DialogTitle, DialogContent, DialogActions } from './dialogHelper';
 import useStyles from '../../assets/caseNoteStyles';
 
 export default function CaseNote(info) {
+  const infos = info.info;
   const classes = useStyles();
-  const theft = new Date(info.info.occurred_at * 1000).toDateString();
-  const reported = new Date(info.info.updated_at * 1000).toDateString();
+  const theft = new Date(infos.occurred_at * 1000).toDateString();
+  const reported = new Date(infos.updated_at * 1000).toDateString();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -26,13 +27,13 @@ export default function CaseNote(info) {
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle>
-          {info.info.title}
+          {infos.title}
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
             {
-              info.info.description
-                ? info.info.description
+              infos.description
+                ? infos.description
                 : <em>No description given</em>
             }
             <br />
@@ -50,8 +51,8 @@ export default function CaseNote(info) {
           </Typography>
           <br />
           {
-            info.info.media.image_url
-              ? <CardMedia className={classes.media} image={info.info.media.image_url} />
+            infos.media.image_url
+              ? <CardMedia className={classes.media} image={infos.media.image_url} />
               : <em>No image provided</em>
           }
           <br />
@@ -59,7 +60,7 @@ export default function CaseNote(info) {
             <br />
             Location of theft:
             {' '}
-            <u>{info.info.address}</u>
+            <u>{infos.address}</u>
             <br />
           </Typography>
         </DialogContent>
