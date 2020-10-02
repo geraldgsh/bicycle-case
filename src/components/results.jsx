@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
 import {
-  List, ListItem, Divider, Box,
+  List,
+  ListItem,
+  Divider,
+  Box,
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
