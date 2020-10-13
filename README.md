@@ -120,8 +120,8 @@ Make sure that you do not modify the [`.github/workflows/linters.yml`](.github/w
 
 ### Future Features
 
-1. Add login 
-2. Add more search params
+1. Add more search params
+2. 
 3.
 
 ### To begin
